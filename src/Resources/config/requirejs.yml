@@ -1,0 +1,3 @@
+config:
+    paths:
+        'orochart/js/app/components/database-chart-component': 'bundles/okvpnapp/js/component/database-chart-component.js'

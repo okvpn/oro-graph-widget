@@ -1,0 +1,4 @@
+okvpn_graph_widget_bundle:
+    resource:     "@OkvpnGraphWidgetBundle/Controller"
+    type:         annotation
+    prefix:       /okvpn

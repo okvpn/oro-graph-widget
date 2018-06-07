@@ -1,0 +1,10 @@
+dashboards:
+    widgets:
+        database_charts:
+            label: Database charts based on sql query
+            route: okvpn_database_chart_widget
+            description: This widget displays line graph based on sql query
+            icon: bundles/okvpngraphwidget/images/database.png
+            configuration:
+                options:
+                    type: Okvpn\Bundle\OkvpnGraphWidgetBundle\Form\Type\DashboardDatabaseChartType

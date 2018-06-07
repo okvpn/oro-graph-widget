@@ -1,0 +1,31 @@
+{
+    "name": "okvpn/graph-widget-bundle",
+    "type": "symfony-bundle",
+    "description": "Build graph bases on database query",
+    "keywords": ["OroCRM", "Graph widget", "Oro Platform"],
+    "homepage": "https://github.com/vtsykun/graph-widget",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tsykun Vladimir",
+            "email": "vtsykun@okvpn.org"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "oro/platform": "^2.3|^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {"Okvpn\\Bundle\\GraphWidgetBundle\\": "src" }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}

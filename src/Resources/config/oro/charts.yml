@@ -1,0 +1,25 @@
+charts:
+    database_chart:
+        label: graph_chart
+        data_schema:
+            label:
+                name: label
+                label: x
+                required: true
+                field_name: x
+            value:
+                name: value
+                label: y
+                required: true
+                field_name: y
+                default_type: decimal
+                type: decimal
+
+        default_settings:
+            connect_dots_with_line: true
+            chartColors: ["#A4A2F6", "#6487BF", "#65BC87", "#8985C2", "#ECB574", "#84A377", "#6598DA", "#ECC87E"]
+            chartFontSize: 9
+            chartFontColor: "#454545"
+            chartHighlightColor: "#FF5E5E"
+
+        template: OroChartBundle:Chart:multiline.html.twig

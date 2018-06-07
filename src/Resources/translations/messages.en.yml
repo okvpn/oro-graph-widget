@@ -1,0 +1,11 @@
+okvpn:
+    app:
+        databasetransport:
+            entity_label: 'Database'
+            entity_plural_label: 'Databases'
+            port.label: 'Port'
+            host.label: 'Hostname'
+            username.label: 'Username'
+            password.label: 'Password'
+            name.label: 'Database name'
+            driver.label: 'Driver'

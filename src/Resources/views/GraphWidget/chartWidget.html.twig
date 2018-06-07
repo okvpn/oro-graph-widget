@@ -1,0 +1,12 @@
+{% extends 'OroDashboardBundle:Dashboard:widget.html.twig' %}
+
+{% set message = message|default('Please update widget config') %}
+{% block content %}
+    {% if chartView is defined %}
+        {{ chartView.render()|raw }}
+    {% else %}
+        <div class="no-data">
+            <span>{{ message }}</span>
+        </div>
+    {% endif %}
+{% endblock %}
