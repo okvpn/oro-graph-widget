@@ -1,6 +1,6 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Entity;
+namespace Okvpn\Bundle\GraphWidgetBundle\Entity;
 
 use Oro\Bundle\IntegrationBundle\Entity\Transport;
 use Symfony\Component\HttpFoundation\ParameterBag;

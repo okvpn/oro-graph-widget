@@ -1,6 +1,6 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\DependencyInjection;
+namespace Okvpn\Bundle\GraphWidgetBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

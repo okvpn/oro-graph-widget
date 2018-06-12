@@ -1,6 +1,6 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Provider;
+namespace Okvpn\Bundle\GraphWidgetBundle\Provider;
 
 use Oro\Bundle\IntegrationBundle\Provider\ChannelInterface;
 use Oro\Bundle\IntegrationBundle\Provider\IconAwareIntegrationInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Controller;
+namespace Okvpn\Bundle\GraphWidgetBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,7 +26,7 @@ class GraphWidgetController extends Controller
         $queryOptions = $widgetAttributes['widgetConfiguration']['options']['value'];
 
         if ($queryOptions) {
-            $chartData = $this->getChartsData($queryOptions['connection'], $queryOptions['sql']);
+            $chartData = $this->getChartsData($queryOptions['connection'] ?? '', $queryOptions['sql'] ?? '');
             if (\is_array($chartData)) {
                 $widgetAttributes['chartView'] = $this->getGraphView($chartData[0], $chartData[1]);
             } else {

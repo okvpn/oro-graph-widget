@@ -1,25 +1,26 @@
 services:
     okvpn_app.provider.database_transport:
-        class: Okvpn\Bundle\OkvpnGraphWidgetBundle\Provider\Transport\DatabaseTransport
+        class: Okvpn\Bundle\GraphWidgetBundle\Provider\Transport\DatabaseTransport
         tags:
             - { name: oro_integration.transport, type: okvpn_database, channel_type: okvpn_database }
 
     okvpn_app.provider.database_channel_type:
-        class: Okvpn\Bundle\OkvpnGraphWidgetBundle\Provider\ChannelType
+        class: Okvpn\Bundle\GraphWidgetBundle\Provider\ChannelType
         tags:
             - { name: oro_integration.channel, type: okvpn_database }
 
     okvpn_app.form.database_chart_widget_type:
-        class: Okvpn\Bundle\OkvpnGraphWidgetBundle\Form\Type\DashboardDatabaseChartType
-        arguments: ['@doctrine']
+        class: Okvpn\Bundle\GraphWidgetBundle\Form\Type\DashboardDatabaseChartType
+        arguments: ['@doctrine', '@security.authorization_checker']
         tags:
             - { name: form.type }
 
     okvpn_app.factory.database_transport_connection:
-        class: Okvpn\Bundle\OkvpnGraphWidgetBundle\Services\TransportConnectionFactory
+        class: Okvpn\Bundle\GraphWidgetBundle\Services\TransportConnectionFactory
         arguments: ['@doctrine.dbal.connection_factory']
         public: false
 
     okvpn_app.factory.database_charts_provider:
-        class: Okvpn\Bundle\OkvpnGraphWidgetBundle\Provider\DatabaseChartProvider
+        class: Okvpn\Bundle\GraphWidgetBundle\Provider\DatabaseChartProvider
         arguments: ['@doctrine', '@okvpn_app.factory.database_transport_connection']
+        public: true

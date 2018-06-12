@@ -1,11 +1,11 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Services;
+namespace Okvpn\Bundle\GraphWidgetBundle\Services;
 
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Logging\SQLLogger;
-use Okvpn\Bundle\OkvpnGraphWidgetBundle\Entity\DatabaseTransport;
+use Okvpn\Bundle\GraphWidgetBundle\Entity\DatabaseTransport;
 
 class TransportConnectionFactory
 {

@@ -1,2 +1,2 @@
 bundles:
-    - { name: Okvpn\Bundle\OkvpnGraphWidgetBundle\OkvpnOkvpnGraphWidgetBundle, priority: 200 }
+    - { name: Okvpn\Bundle\GraphWidgetBundle\OkvpnGraphWidgetBundle, priority: 10 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Provider\Transport;
+namespace Okvpn\Bundle\GraphWidgetBundle\Provider\Transport;
 
-use Okvpn\Bundle\OkvpnGraphWidgetBundle\Form\Type\DatabaseTransportType;
+use Okvpn\Bundle\GraphWidgetBundle\Form\Type\DatabaseTransportType;
 use Oro\Bundle\IntegrationBundle\Entity\Transport;
 use Oro\Bundle\IntegrationBundle\Provider\TransportInterface;
 
@@ -34,6 +34,6 @@ class DatabaseTransport implements TransportInterface
      */
     public function getSettingsEntityFQCN()
     {
-        return 'Okvpn\Bundle\OkvpnGraphWidgetBundle\Entity\DatabaseTransport';
+        return 'Okvpn\Bundle\GraphWidgetBundle\Entity\DatabaseTransport';
     }
 }

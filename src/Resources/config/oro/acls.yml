@@ -1,0 +1,7 @@
+acls:
+    okvpn_sql_query:
+        label: 'Create and edit SQL query for dashboard widget'
+        description: 'Create and edit SQL query for dashboard widget'
+        type: action
+        group_name: ""
+        category: "application"

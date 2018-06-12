@@ -1,8 +1,8 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Form\Type;
+namespace Okvpn\Bundle\GraphWidgetBundle\Form\Type;
 
-use Okvpn\Bundle\OkvpnGraphWidgetBundle\Entity\DatabaseTransport;
+use Okvpn\Bundle\GraphWidgetBundle\Entity\DatabaseTransport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;

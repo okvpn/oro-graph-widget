@@ -1,5 +1,5 @@
 okvpn:
-    app:
+    graphwidget:
         databasetransport:
             entity_label: 'Database'
             entity_plural_label: 'Databases'

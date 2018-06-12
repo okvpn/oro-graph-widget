@@ -1,6 +1,6 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Form\Type;
+namespace Okvpn\Bundle\GraphWidgetBundle\Form\Type;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DashboardDatabaseChartType extends AbstractType
 {
@@ -23,14 +25,23 @@ class DashboardDatabaseChartType extends AbstractType
     protected $registry;
 
     /**
+     * @var AuthorizationCheckerInterface
+     */
+    protected $authorizationChecker;
+
+    /**
      * {@inheritdoc}
      */
-    public function __construct(ManagerRegistry $registry, array $senders = [])
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        AuthorizationCheckerInterface $authorizationChecker,
+        array $senders = []
+    ) {
         if (empty($senders)) {
-            $senders[] = 'database';
+            $senders[] = 'okvpn_database';
         }
 
+        $this->authorizationChecker = $authorizationChecker;
         $this->senders = $senders;
         $this->registry = $registry;
     }
@@ -47,7 +58,10 @@ class DashboardDatabaseChartType extends AbstractType
                 [
                     'label' => 'Database connection',
                     'required' => true,
-                    'choices' => $this->getChoices()
+                    'choices' => $this->getChoices(),
+                    'constraints' => [
+                        new NotBlank()
+                    ]
                 ]
             )
             ->add(
@@ -55,7 +69,11 @@ class DashboardDatabaseChartType extends AbstractType
                 TextareaType::class,
                 [
                     'required' => true,
-                    'label' => 'Sql query'
+                    'label' => 'Sql query',
+                    'disabled' => !$this->authorizationChecker->isGranted('okvpn_sql_query'),
+                    'constraints' => [
+                        new NotBlank()
+                    ]
                 ]
             );
     }

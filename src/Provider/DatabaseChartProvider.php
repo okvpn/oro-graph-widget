@@ -1,14 +1,14 @@
 <?php
 
-namespace Okvpn\Bundle\OkvpnGraphWidgetBundle\Provider;
+namespace Okvpn\Bundle\GraphWidgetBundle\Provider;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Okvpn\Bundle\OkvpnGraphWidgetBundle\Services\TransportConnectionFactory;
+use Okvpn\Bundle\GraphWidgetBundle\Services\TransportConnectionFactory;
 
 class DatabaseChartProvider
 {
-    const MAX_ROWS = 1000;
-    const UNDEFINED = 'undefined';
+    const MAX_ROWS = 5000;
+    const UNDEFINED = 'main';
 
     /**
      * OX axis
@@ -53,7 +53,7 @@ class DatabaseChartProvider
     public function getChartData($transport, $sql)
     {
         if (\is_numeric($transport)) {
-            $transport = $this->registry->getRepository('OkvpnOkvpnGraphWidgetBundle:DatabaseTransport')
+            $transport = $this->registry->getRepository('OkvpnGraphWidgetBundle:DatabaseTransport')
                 ->find($transport);
             if ($transport === null) {
                 throw new \InvalidArgumentException("DatabaseTransport#$transport not found in database.");

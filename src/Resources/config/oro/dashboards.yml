@@ -7,4 +7,4 @@ dashboards:
             icon: bundles/okvpngraphwidget/images/database.png
             configuration:
                 options:
-                    type: Okvpn\Bundle\OkvpnGraphWidgetBundle\Form\Type\DashboardDatabaseChartType
+                    type: Okvpn\Bundle\GraphWidgetBundle\Form\Type\DashboardDatabaseChartType
