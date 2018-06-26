@@ -81,7 +81,7 @@ class DatabaseChartProvider
                 $xType = $this->guessesType($x);
             }
 
-            if (\count($result) > self::MAX_ROWS) {
+            if (\count($result) > static::MAX_ROWS) {
                 break;
             }
         }
@@ -99,18 +99,18 @@ class DatabaseChartProvider
             return null;
         }
 
-        if (\is_numeric($value)) {
-            return strpos($value, '.') !== false ? 'decimal' : 'integer';
+        // See orochart/js/data_formatter
+        switch (true) {
+            case \is_numeric($value):
+                return strpos($value, '.') !== false ? 'decimal' : 'integer';
+            case \preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $value):
+                return 'datetime';
+            case \preg_match('/^\d{4}-\d{2}-\d{2}$/', $value):
+                return 'date';
+            case \preg_match('/^\d{4}-\d{2}$/', $value):
+                return 'month';
+            default:
+                return 'string';
         }
-
-        if (\preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $value)) {
-            return 'datetime';
-        }
-
-        if (\preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
-            return 'date';
-        }
-
-        return 'string';
     }
 }
