@@ -1,4 +1,7 @@
-define(['orochart/js/app/components/multiline-chart-component'], function (MultiLineChartComponent) {
+define([
+    'orochart/js/app/components/multiline-chart-component',
+    'oroui/js/persistent-storage',
+], function (MultiLineChartComponent, persistentStorage) {
     'use strict';
 
     var graph;
@@ -170,6 +173,12 @@ define(['orochart/js/app/components/multiline-chart-component'], function (Multi
                 return;
             }
 
+            var localStorageKey = 'okvpn-widget-' + options.wid;
+            var chartSavedConfig = _.extend(
+                {hash: options.hash, data: []},
+                this.getFromLocalStorage(localStorageKey)
+            );
+
             if (dataFormatter.isValueNumerical(xFormat)) {
                 var sort = function (rawData) {
                     rawData.sort(function (first, second) {
@@ -255,9 +264,17 @@ define(['orochart/js/app/components/multiline-chart-component'], function (Multi
             _.each(rawData, function (rawData, key) {
                 var result = makeChart(rawData, count, key);
                 count++;
-
                 charts.push(result);
             });
+            if (chartSavedConfig.hash !== options.hash) {
+                chartSavedConfig.hash = options.hash;
+                chartSavedConfig.data = [];
+            }
+            for (var i = 0; i < charts.length; i++) {
+                if (chartSavedConfig.data[i] === true) {
+                    charts[i].hide = true;
+                }
+            }
 
             this.chart2Config.data = charts;
             this.chart2Config.el = $chart.get(0);
@@ -308,9 +325,21 @@ define(['orochart/js/app/components/multiline-chart-component'], function (Multi
                     position: 'sw',
                     onClickHandler: function (index, func, plot) {
                         var data = plot.data;
+                        var savedConfig = null;
+                        try {
+                            savedConfig = JSON.parse(persistentStorage.getItem(localStorageKey));
+                        } catch (e) {
+                        }
+
+                        savedConfig = _.extend({data: []}, savedConfig);
                         plot.ctx.canvas.removeEventListener('click', func, false);
                         data[index].hide = !data[index].hide;
+                        for (var i = 0; i < data.length; i++) {
+                            savedConfig.data[i] = data[i].hide;
+                        }
+
                         Flotr.draw(plot.el, data, plot.options);
+                        persistentStorage.setItem(localStorageKey, JSON.stringify(savedConfig));
                     }
                 },
                 legend: {
@@ -319,7 +348,20 @@ define(['orochart/js/app/components/multiline-chart-component'], function (Multi
             };
 
             Flotr.draw(this.chart2Config.el, this.chart2Config.data, this.chart2Config.options);
+            this.saveToLocalStorage(localStorageKey, chartSavedConfig);
         },
+
+        getFromLocalStorage: function (key) {
+            try {
+                return JSON.parse(persistentStorage.getItem(key))
+            } catch (e) {
+                return null;
+            }
+        },
+        
+        saveToLocalStorage: function (key, data) {
+            persistentStorage.setItem(key, JSON.stringify(data));
+        }
     });
 
     return graph;

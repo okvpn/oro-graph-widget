@@ -5,6 +5,7 @@ namespace Okvpn\Bundle\GraphWidgetBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/")
@@ -14,31 +15,32 @@ class GraphWidgetController extends Controller
     /**
      * @Route("/chart/widget/{widget}", name="okvpn_database_chart_widget", requirements={"widget"="[\w-]+"})
      *
+     * @param Request $request
      * @param string $widget
      * @return array
      *
      * @Template()
      */
-    public function chartWidgetAction($widget)
+    public function chartWidgetAction(Request $request, $widget)
     {
         $widgetAttributes = $this->get('oro_dashboard.widget_configs')
             ->getWidgetAttributesForTwig($widget);
         $queryOptions = $widgetAttributes['widgetConfiguration']['options']['value'];
 
         if ($queryOptions) {
-            $chartData = $this->getChartsData($queryOptions['connection'] ?? '', $queryOptions['sql'] ?? '');
+            $sql = $queryOptions['sql'] ?? '';
+            $chartData = $this->getChartsData($queryOptions['connection'] ?? '', $sql);
             if (\is_array($chartData)) {
-                $widgetAttributes['chartView'] = $this->getGraphView($chartData[0], $chartData[1]);
+                $widgetAttributes['chartView'] = $this->getGraphView($chartData[0], $chartData[1], $sql, $request->get('_widgetId'));
             } else {
                 $widgetAttributes['message'] = $chartData;
             }
         }
 
-
         return $widgetAttributes;
     }
 
-    protected function getGraphView($xAxisType, $chartData)
+    protected function getGraphView($xAxisType, $chartData, $sql, $widgetId)
     {
         $viewBuilder = $this->container->get('oro_chart.view_builder');
         $chartName = 'database_chart';
@@ -46,6 +48,8 @@ class GraphWidgetController extends Controller
         $chartConfig = $this->get('oro_chart.config_provider')->getChartConfig($chartName);
         $chartConfig['data_schema']['label']['type'] = $xAxisType;
         $chartConfig['data_schema']['label']['default_type'] = $xAxisType;
+        $chartConfig['wid'] = $widgetId;
+        $chartConfig['hash'] = \sha1($sql);
 
         $view = $viewBuilder
             ->setArrayData($chartData)
